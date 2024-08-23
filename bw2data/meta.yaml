@@ -1,0 +1,54 @@
+{% set name = "bw2data" %}
+{% set version = "4.0.dev51" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/bw2data-{{ version }}.tar.gz
+  sha256: c191f99d4074fa5756dcf149375af50c1df950eb4badfc1da8988ca81fffa1e4
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+
+requirements:
+  host:
+    - python >=3.9
+    - setuptools >=68.0
+    - pip
+  run:
+    - python >=3.9
+    - bw2parameters
+    - bw_processing >=0.9.5
+    - fsspec
+    - lxml
+    - numpy <2
+    - peewee >=3.9.4
+    - platformdirs
+    - pydantic-settings
+    # - rapidfuzz  # not available for emscripten platform
+    - scipy
+    - stats_arrays
+    - tqdm
+    - voluptuous
+    - wrapt
+
+test:
+  imports:
+    - bw2data
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  summary: Emscripten-specific version of the bw2data package.
+  license: BSD-3-Clause
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - michaelweinold
