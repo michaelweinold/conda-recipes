@@ -1,0 +1,62 @@
+{% set name = "bw2io" %}
+{% set version = "0.9.dev34" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/bw2io-{{ version }}.tar.gz
+  sha256: fa3a097cfb595c73f66be55d27c75bb7432ec0f5448a95b438943f138949049b
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+
+requirements:
+  host:
+    - python >=3.9
+    - setuptools >=69.0
+    - pip
+  run:
+    - python >=3.9
+    - bw2calc >=2.0.dev14
+    - bw2data >=4.0.dev47
+    - bw2parameters >=1.1.0
+    - bw_migrations >=0.2
+    - bw_processing >=0.8.5
+    - bw-simapro-csv >=0.2.3
+    - lxml
+    - mrio_common_metadata
+    - multifunctional >=0.5
+    - numpy
+    - openpyxl
+    - platformdirs
+    - sparqlwrapper
+    - pyecospold
+    - requests
+    - scipy
+    - stats_arrays >=0.6.5
+    - tqdm
+    - unidecode
+    - voluptuous
+    - xlrd
+    - xlsxwriter
+
+test:
+  imports:
+    - bw2io
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  summary: Tools for importing and export life cycle inventory databases
+  license: BSD-3-Clause
+  license_file: LICENSE.txt
+
+extra:
+  recipe-maintainers:
+    - michaelweinold

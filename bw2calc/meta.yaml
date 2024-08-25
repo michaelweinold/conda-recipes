@@ -1,0 +1,48 @@
+{% set name = "bw2calc" %}
+{% set version = "2.0.dev18" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/bw2calc-{{ version }}.tar.gz
+  sha256: a5daf196bfab5266d0ceb8352579220d03cf619d16f49475bb0d7807a7aefd81
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+
+requirements:
+  host:
+    - python >=3.9
+    - setuptools >=68.0
+    - pip
+  run:
+    - python >=3.9
+    - bw_processing
+    - fsspec
+    - matrix_utils >=0.4.3
+    - numpy
+    - pandas
+    - pydantic
+    - scipy
+    - stats_arrays
+
+test:
+  imports:
+    - bw2calc
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  summary: The calculation engine for the Brightway life cycle assessment framework.
+  license: BSD-3-Clause
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - michaelweinold
